@@ -4,6 +4,7 @@ import '../providers/recipe_provider.dart';
 import '../widgets/recipe_card.dart';
 import '../widgets/category_chip.dart';
 import '../widgets/bottom_navigation.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -48,12 +49,24 @@ class _HomeScreenState extends State<HomeScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Good Morning',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                              ),
+
+                            Row(
+                              children: [
+                                Image.asset(
+                                  'assets/icons/sun_icon.png', // Make sure this icon exists in your assets
+                                  width: 20,
+                                  height: 20,
+                                ),
+                                const SizedBox(width: 8),
+                                const Text(
+                                  'Good Morning',
+                                  style: TextStyle(
+                                    fontFamily: 'SofiaPro',
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
                             ),
                             const SizedBox(height: 4),
                             Text(
@@ -64,7 +77,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         IconButton(
-                          icon: const Icon(Icons.shopping_cart_outlined),
+                          icon: SvgPicture.asset(
+                            'assets/icons/Buy.svg',
+                            width: 25,
+                            height: 25,
+                          ),
                           onPressed: () {},
                         ),
                       ],
@@ -108,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 240,
                           margin: const EdgeInsets.only(right: 16),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF68C4C0),
+                            color: const Color(0xFF70B9BE),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Stack(

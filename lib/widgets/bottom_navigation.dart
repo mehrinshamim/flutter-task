@@ -21,7 +21,7 @@ class BottomNavigation extends StatelessWidget {
               icon: Icon(
                 Icons.home,
                 color:
-                    currentIndex == 0 ? const Color(0xFF68C4C0) : Colors.grey,
+                    currentIndex == 0 ? const Color(0xFF70B9BE) : Colors.grey,
               ),
               onPressed: () {
                 if (currentIndex != 0) {
@@ -33,7 +33,7 @@ class BottomNavigation extends StatelessWidget {
               icon: Icon(
                 Icons.search,
                 color:
-                    currentIndex == 1 ? const Color(0xFF68C4C0) : Colors.grey,
+                    currentIndex == 1 ? const Color(0xFF70B9BE) : Colors.grey,
               ),
               onPressed: () {
                 if (currentIndex != 1) {
@@ -47,7 +47,7 @@ class BottomNavigation extends StatelessWidget {
               icon: Icon(
                 Icons.notifications,
                 color:
-                    currentIndex == 2 ? const Color(0xFF68C4C0) : Colors.grey,
+                    currentIndex == 2 ? const Color(0xFF70B9BE) : Colors.grey,
               ),
               onPressed: () {
                 if (currentIndex != 2) {
@@ -59,7 +59,7 @@ class BottomNavigation extends StatelessWidget {
               icon: Icon(
                 Icons.person,
                 color:
-                    currentIndex == 3 ? const Color(0xFF68C4C0) : Colors.grey,
+                    currentIndex == 3 ? const Color(0xFF70B9BE) : Colors.grey,
               ),
               onPressed: () {
                 if (currentIndex != 3) {

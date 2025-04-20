@@ -20,7 +20,7 @@ class CategoryChip extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF68C4C0) : Colors.grey[200],
+          color: isSelected ? const Color(0xFF70B9BE) : Colors.grey[200],
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(

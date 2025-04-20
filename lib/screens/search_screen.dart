@@ -77,7 +77,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           child: ChoiceChip(
                             label: Text(category),
                             selected: _selectedCategory == category,
-                            selectedColor: const Color(0xFF68C4C0),
+                            selectedColor: const Color(0xFF70B9BE),
                             onSelected: (selected) {
                               setState(() {
                                 _selectedCategory = category;
