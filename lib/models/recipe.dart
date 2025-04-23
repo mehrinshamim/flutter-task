@@ -11,6 +11,14 @@ class Recipe {
   final List<String> ingredients;
   final bool isFavorite;
 
+  final List<Map<String, dynamic>> ingredientsList;
+  final String instructions;
+  final String creator;
+  final String creatorDescription;
+  final int carbs;
+  final int proteins;
+  final int fats;
+
   Recipe({
     required this.id,
     required this.title,
@@ -21,6 +29,7 @@ class Recipe {
     required this.category,
     required this.ingredients,
     this.isFavorite = false,
+    
   });
 
   // Convert Product from FakeStore API to Recipe

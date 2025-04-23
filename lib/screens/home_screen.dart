@@ -54,15 +54,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 Image.asset(
                                   'assets/icons/sun_icon.png', // Make sure this icon exists in your assets
-                                  width: 20,
-                                  height: 20,
+                                  width: 24,
+                                  height: 24,
                                 ),
                                 const SizedBox(width: 8),
                                 const Text(
                                   'Good Morning',
                                   style: TextStyle(
                                     fontFamily: 'SofiaPro',
-                                    fontSize: 14,
+                                    fontSize: 16,
                                     color: Colors.black,
                                   ),
                                 ),
@@ -72,15 +72,19 @@ class _HomeScreenState extends State<HomeScreen> {
                             Text(
                               'Alena Sabyan',
                               style: Theme.of(context).textTheme.titleLarge
-                                  ?.copyWith(fontWeight: FontWeight.bold),
+                                  ?.copyWith(
+                                    fontFamily: 'SofiaPro',
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.bold
+                                    ),
                             ),
                           ],
                         ),
                         IconButton(
                           icon: SvgPicture.asset(
                             'assets/icons/Buy.svg',
-                            width: 25,
-                            height: 25,
+                            width: 28,
+                            height: 28,
                           ),
                           onPressed: () {},
                         ),
@@ -88,6 +92,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
+
+              // Add spacing here
+                SliverToBoxAdapter(
+                  child: const SizedBox(height: 16.0)
+                  ),
 
                 SliverToBoxAdapter(
                   child: Padding(
@@ -98,23 +107,24 @@ class _HomeScreenState extends State<HomeScreen> {
                         const Text(
                           'Featured',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 22,
                             fontWeight: FontWeight.bold,
                           ),
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: const Text('See All'),
                         ),
                       ],
                     ),
                   ),
                 ),
 
+                  // Add spacing here
+                SliverToBoxAdapter(
+                  child: const SizedBox(height: 16.0),
+                ),
+
                 // Featured recipes
                 SliverToBoxAdapter(
                   child: SizedBox(
-                    height: 180,
+                    height: 200,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -122,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (context, index) {
                         final recipe = recipeProvider.featuredRecipes[index];
                         return Container(
-                          width: 240,
+                          width: 300,
                           margin: const EdgeInsets.only(right: 16),
                           decoration: BoxDecoration(
                             color: const Color(0xFF70B9BE),
@@ -133,6 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Padding(
                                 padding: const EdgeInsets.all(12.0),
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
@@ -140,12 +151,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 16,
+                                        fontSize: 18,
                                       ),
                                     ),
                                     const SizedBox(height: 8),
                                     Row(
                                       children: [
+                                  
                                         CircleAvatar(
                                           radius: 12,
                                           backgroundImage: NetworkImage(
@@ -157,14 +169,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           recipe.chef,
                                           style: const TextStyle(
                                             color: Colors.white,
-                                            fontSize: 12,
+                                            fontSize: 14,
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                    const Spacer(),
-                                    Row(
-                                      children: [
+
+                                        const Spacer(),
+
                                         const Icon(
                                           Icons.access_time,
                                           color: Colors.white,
@@ -180,6 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ],
                                     ),
+                                    SizedBox(height: 8),
                                   ],
                                 ),
                               ),
