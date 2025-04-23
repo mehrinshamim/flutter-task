@@ -29,7 +29,13 @@ class Recipe {
     required this.category,
     required this.ingredients,
     this.isFavorite = false,
-    
+    this.ingredientsList = const [],
+    this.instructions = '',
+    this.creator = '',
+    this.creatorDescription = '',
+    this.carbs = 0,
+    this.proteins = 0,
+    this.fats = 0,
   });
 
   // Convert Product from FakeStore API to Recipe
@@ -40,15 +46,26 @@ class Recipe {
           product.title.length > 25
               ? "${product.title.substring(0, 25)}..."
               : product.title,
-      chef: "James Spader", // Default chef name
+      chef: "James Spader",
       imageUrl: product.image,
       cookTime: 20,
-      calories: 100, 
+      calories: 100,
       category: _mapCategoryToMeal(product.category),
       ingredients: _generateRandomIngredients(),
       isFavorite: false,
+      ingredientsList: [
+        {'name': 'Ingredient 1', 'amount': '100g'},
+        {'name': 'Ingredient 2', 'amount': '200ml'},
+      ],
+      instructions: 'Sample cooking instructions for ${product.title}',
+      creator: 'Chef James Spader',
+      creatorDescription: 'Expert chef with 15 years of experience',
+      carbs: 30,
+      proteins: 20,
+      fats: 10,
     );
   }
+
 
   static String _mapCategoryToMeal(String category) {
     final Map<String, String> categoryMap = {

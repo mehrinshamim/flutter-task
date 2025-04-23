@@ -215,13 +215,20 @@ class _HomeScreenState extends State<HomeScreen> {
                             const Text(
                               'Category',
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 22,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             TextButton(
                               onPressed: () {},
-                              child: const Text('See All'),
+                              child: const Text(
+                                'See All',
+                                style: TextStyle(
+                                  color: Color(0xFF70B9BE),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                ),
                             ),
                           ],
                         ),
@@ -258,13 +265,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         const Text(
                           'Popular Recipes',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 22,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         TextButton(
                           onPressed: () {},
-                          child: const Text('See All'),
+                          child: const Text(
+                            'See All',
+                            style: TextStyle(
+                              color: Color(0xFF70B9BE),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -279,7 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisCount: 2,
                           crossAxisSpacing: 16.0,
                           mainAxisSpacing: 16.0,
-                          childAspectRatio: 0.8,
+                          childAspectRatio: 0.78,
                         ),
                     delegate: SliverChildBuilderDelegate((context, index) {
                       if (index >= recipeProvider.recipes.length) {
@@ -290,6 +304,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     }, childCount: recipeProvider.recipes.length.clamp(0, 4)),
                   ),
                 ),
+                // SliverToBoxAdapter(child: PopularRecipesSection()),
+
               ],
             );
           },
@@ -305,3 +321,74 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
+// // Popular Recipes Section (Image 1)
+// class PopularRecipesSection extends StatelessWidget {
+//   const PopularRecipesSection({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final recipeProvider = Provider.of<RecipeProvider>(context);
+//     final featuredRecipes = recipeProvider.featuredRecipes;
+//     final isLoading = recipeProvider.isLoading;
+
+//     return Column(
+//       children: [
+//         Padding(
+//           padding: const EdgeInsets.symmetric(vertical: 16.0),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Text(
+//                 'Popular Recipes',
+//                 style: TextStyle(
+//                   fontSize: 20,
+//                   fontWeight: FontWeight.bold,
+//                   color: Color(0xFF2D4654),
+//                 ),
+//               ),
+//               Text(
+//                 'See All',
+//                 style: TextStyle(
+//                   fontSize: 14,
+//                   color: Colors.teal,
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//         if (isLoading)
+//           Container(
+//             height: 180,
+//             child: Center(child: CircularProgressIndicator()),
+//           )
+//         else if (featuredRecipes.isEmpty)
+//           Container(
+//             height: 180,
+//             child: Center(child: Text('No recipes available')),
+//           )
+//         else
+//           SizedBox(
+//             height: 180,
+//             child: ListView.builder(
+//               scrollDirection: Axis.horizontal,
+//               itemCount: featuredRecipes.length,
+//               itemBuilder: (context, index) {
+//                 final recipe = featuredRecipes[index];
+//                 return Padding(
+//                   padding: EdgeInsets.only(right: 12),
+//                   child: RecipeCard(
+//                     recipe: recipe,
+//                     onFavoriteToggle: () {
+//                       recipeProvider.toggleFavorite(recipe.id);
+//                     },
+//                   ),
+//                 );
+//               },
+//             ),
+//           ),
+//       ],
+//     );
+//   }
+// }

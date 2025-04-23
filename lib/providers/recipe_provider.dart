@@ -70,4 +70,40 @@ class RecipeProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> loadRecipeDetails(int recipeId) async {
+    // This would normally fetch from API
+    // Since we're adapting FakeStore API data, we'll add the details to the existing recipe
+    final index = _recipes.indexWhere((recipe) => recipe.id == recipeId);
+    if (index != -1) {
+      // Add ingredient details and instructions
+      _recipes[index] = Recipe(
+        id: _recipes[index].id,
+        title: _recipes[index].title,
+        chef: _recipes[index].chef,
+        imageUrl: _recipes[index].imageUrl,
+        cookTime: _recipes[index].cookTime,
+        calories: _recipes[index].calories,
+        category: _recipes[index].category,
+        ingredients: _recipes[index].ingredients,
+        isFavorite: _recipes[index].isFavorite,
+        // Add new fields
+        carbs: 65,
+        proteins: 27,
+        fats: 9,
+        creator: 'Natalia Luca',
+        creatorDescription: "I'm the author and recipe developer.",
+        instructions:
+            'Step 1: Prepare all ingredients\n\nStep 2: Mix the vegetables in a large bowl\n\nStep 3: Add spices and mix well',
+        ingredientsList: [
+          {'name': 'Tortilla Chips', 'quantity': 2},
+          {'name': 'Avocado', 'quantity': 1},
+          {'name': 'Red Cabbage', 'quantity': 9},
+          {'name': 'Peanuts', 'quantity': 1},
+          {'name': 'Red Onions', 'quantity': 1},
+        ],
+      );
+      notifyListeners();
+    }
+  }
 }
