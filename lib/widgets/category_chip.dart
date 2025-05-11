@@ -20,7 +20,7 @@ class CategoryChip extends StatelessWidget {
       onTap: onTap,
       child: Container(
         //width: width,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
         decoration: BoxDecoration(
           color: isSelected ? const Color(0xFF70B9BE) : Colors.grey[200],
           borderRadius: BorderRadius.circular(20),
@@ -29,7 +29,7 @@ class CategoryChip extends StatelessWidget {
           category,
           style: TextStyle(
             color: isSelected ? Colors.white : Colors.black,
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            fontWeight: FontWeight.normal,
           ),
         ),
       ),
