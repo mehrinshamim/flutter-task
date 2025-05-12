@@ -84,6 +84,8 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen>
                             setState(() {
                               isFavorite = !isFavorite;
                             });
+                            // Optionally update the favorite status in the provider
+                            //recipeProvider.toggleFavorite(widget.recipe);
                           },
                           child: SvgPicture.asset(
                             isFavorite
@@ -494,47 +496,13 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen>
 class RecipeCard extends StatelessWidget {
   final String imageUrl;
   final String title;
-  final dynamic recipe; // Add this field
+  final dynamic recipe;
 
   const RecipeCard({
     Key? key,
     required this.imageUrl,
     required this.title,
-    required this.recipe, // Add this parameter
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => RecipeDetailScreen(recipe: recipe),
-          ),
-        );
-      },
-      child: Container(
-        width: 120,
-        margin: const EdgeInsets.only(right: 15),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              blurRadius: 8,
-
-class RecipeCard extends StatelessWidget {
-  final String imageUrl;
-  final String title;
-  final dynamic recipe; // Add this field
-
-  const RecipeCard({
-    Key? key,
-    required this.imageUrl,
-    required this.title,
-    required this.recipe, // Add this parameter
+    required this.recipe,
   }) : super(key: key);
 
   @override
@@ -567,7 +535,7 @@ class RecipeCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: const EdgeInsets.all(10), // Added padding
+              padding: const EdgeInsets.all(10),
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(15),
