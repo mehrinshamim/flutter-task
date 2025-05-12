@@ -37,30 +37,18 @@ class IngredientItem extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 50, // Increased from 40
-            height: 50, // Increased from 40
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child:
-                  imagePath != null
-                      ? SvgPicture.asset(
-                        imagePath!,
-                        // Remove BoxFit.cover
-                        height: 24,
-                        width: 24,
-                      )
-                      : imageUrl != null
-                      ? Image.network(imageUrl!, fit: BoxFit.cover)
-                      : Icon(
-                        Icons.restaurant,
-                        color: Colors.grey[400],
-                        size: 30,
-                      ),
-            ),
+            height: 40,
+            width: 40,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+            child:
+                imagePath != null
+                    ? Image.asset(
+                      imagePath!,
+                      height: 50,
+                      width: 50,
+                      fit: BoxFit.contain,
+                    )
+                    : Icon(Icons.restaurant, color: Colors.grey[400], size: 30),
           ),
           SizedBox(width: 20), // Increased from 16
           Expanded(
@@ -79,8 +67,9 @@ class IngredientItem extends StatelessWidget {
                 width: 32, // Increased from 24
                 height: 32, // Increased from 24
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  color: Colors.white, // Changed from Colors.grey[200]
                   borderRadius: BorderRadius.circular(6),
+                  // Removed border property
                 ),
                 child: SvgPicture.asset(
                   'assets/icons/Negative.svg',
@@ -106,8 +95,9 @@ class IngredientItem extends StatelessWidget {
                 width: 32, // Increased from 24
                 height: 32, // Increased from 24
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  color: Colors.white, // Changed from Colors.grey[200]
                   borderRadius: BorderRadius.circular(6),
+                  // Removed border property
                 ),
                 child: SvgPicture.asset(
                   'assets/icons/Plus.svg',

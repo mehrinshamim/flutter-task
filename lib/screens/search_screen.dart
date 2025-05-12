@@ -4,6 +4,7 @@ import '../providers/recipe_provider.dart';
 import '../widgets/bottom_navigation.dart';
 import '../widgets/floating_action_button.dart';
 import './recipe_detail_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -90,13 +91,20 @@ class _SearchScreenState extends State<SearchScreen> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(width: 1, color: Colors.grey),
+          border: Border.all(width: 1, color: Colors.grey[350]!),
         ),
         child: TextField(
           controller: _searchController,
           decoration: InputDecoration(
             border: InputBorder.none,
-            prefixIcon: const Icon(Icons.search, color: Color(0xFF0D3B35)),
+            prefixIcon: Padding(
+              padding: const EdgeInsets.all(12),
+              child: SvgPicture.asset(
+                'assets/icons/Search.svg',
+                height: 24,
+                width: 24,
+              ),
+            ),
             hintText: 'Search',
             hintStyle: TextStyle(color: Colors.grey[400]),
             contentPadding: const EdgeInsets.symmetric(vertical: 15),
@@ -194,7 +202,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 recipeProvider.recipes.length > 2
                     ? recipeProvider.recipes[2].imageUrl
                     : '',
-            title: 'Easy homemade beef burger',
+            title: recipeProvider.recipes[2].title,
             author: 'James Spader',
             authorImageUrl: 'https://i.pravatar.cc/150?img=20',
             recipe:
@@ -208,13 +216,13 @@ class _SearchScreenState extends State<SearchScreen> {
                 recipeProvider.recipes.length > 3
                     ? recipeProvider.recipes[3].imageUrl
                     : '',
-            title: 'Blueberry with egg for breakfast',
+            title: recipeProvider.recipes[3].title,
             author: 'Alice Fala',
             authorImageUrl: 'https://i.pravatar.cc/150?img=21',
             recipe:
                 recipeProvider.recipes.length > 3
                     ? recipeProvider.recipes[3]
-                    : null, // Add this line
+                    : null, 
           ),
         ],
       ),

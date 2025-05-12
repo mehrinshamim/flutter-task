@@ -20,7 +20,6 @@ class RecipeCard extends StatelessWidget {
 
     return Container(
       width: 180,
-      transform: Matrix4.identity()..scale(1.2),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),

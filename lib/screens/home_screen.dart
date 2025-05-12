@@ -281,25 +281,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
 
-                // SliverPadding(
-                //   padding: const EdgeInsets.all(16.0),
-                //   sliver: SliverGrid(
-                //     gridDelegate:
-                //         const SliverGridDelegateWithFixedCrossAxisCount(
-                //           crossAxisCount: 2,
-                //           crossAxisSpacing: 16.0,
-                //           mainAxisSpacing: 16.0,
-                //           childAspectRatio: 0.78,
-                //         ),
-                //     delegate: SliverChildBuilderDelegate((context, index) {
-                //       if (index >= recipeProvider.recipes.length) {
-                //         return null;
-                //       }
-                //       final recipe = recipeProvider.recipes[index];
-                //       return RecipeCard(recipe: recipe);
-                //     }, childCount: recipeProvider.recipes.length.clamp(0, 4)),
-                //   ),
-                // ),
                 SliverToBoxAdapter(child: PopularRecipesSection()),
               ],
             );
@@ -329,29 +310,6 @@ class PopularRecipesSection extends StatelessWidget {
 
     return Column(
       children: [
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(vertical: 16.0),
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //     children: [
-        //       Text(
-        //         'Popular Recipes',
-        //         style: TextStyle(
-        //           fontSize: 20,
-        //           fontWeight: FontWeight.bold,
-        //           color: Color(0xFF2D4654),
-        //         ),
-        //       ),
-        //       Text(
-        //         'See All',
-        //         style: TextStyle(
-        //           fontSize: 14,
-        //           color: Colors.teal,
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
         if (isLoading)
           Container(
             height: 180,
@@ -364,25 +322,22 @@ class PopularRecipesSection extends StatelessWidget {
           )
         else
           SizedBox(
-            height: 300,
-            child: ListView.builder(
+            height: 220,
+            child: ListView.separated(
+              // Use ListView.separated for better spacing
               scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-              ), // Add this line
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               itemCount: featuredRecipes.length,
+              separatorBuilder:
+                  (context, index) =>
+                      SizedBox(width: 16), // Add space between items
               itemBuilder: (context, index) {
                 final recipe = featuredRecipes[index];
-                return Padding(
-                  padding: EdgeInsets.only(right: 12),
-                  child: SingleChildScrollView(
-                    child: RecipeCard(
-                      recipe: recipe,
-                      onFavoriteToggle: () {
-                        recipeProvider.toggleFavorite(recipe.id);
-                      },
-                    ),
-                  ),
+                return RecipeCard(
+                  recipe: recipe,
+                  onFavoriteToggle: () {
+                    recipeProvider.toggleFavorite(recipe.id);
+                  },
                 );
               },
             ),

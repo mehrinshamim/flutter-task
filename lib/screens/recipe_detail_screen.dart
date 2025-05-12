@@ -64,21 +64,21 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen>
                       ),
                       // Back button
                       Positioned(
-                        top: 40,
-                        left: 16,
+                        top: 0,
+                        left: 10,
                         child: GestureDetector(
                           onTap: () => Navigator.pop(context),
                           child: SvgPicture.asset(
                             'assets/icons/Cancel.svg',
-                            height: 32,
-                            width: 32,
+                            height: 80,
+                            width: 80,
                           ),
                         ),
                       ),
                       // Favorite button
                       Positioned(
-                        top: 40,
-                        right: 16,
+                        top: 0,
+                        right: 10,
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
@@ -91,8 +91,8 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen>
                             isFavorite
                                 ? 'assets/icons/Love-Filled.svg'
                                 : 'assets/icons/Love.svg',
-                            height: 32,
-                            width: 32,
+                            height: 80,
+                            width: 80,
                           ),
                         ),
                       ),
@@ -259,17 +259,23 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen>
                                     child: ElevatedButton(
                                       onPressed: () {},
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: Color(0xFF68C4C0),
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: 16,
-                                        ),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            8,
-                                          ),
+                                      backgroundColor: Color(0xFF68C4C0),
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: 16,
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                        8,
                                         ),
                                       ),
-                                      child: Text('Add To Cart'),
+                                      ),
+                                      child: Text(
+                                      'Add To Cart',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -420,27 +426,27 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen>
         IngredientItem(
           name: 'Tortilla Chips',
           quantity: 2,
-          imagePath: 'assets/icons/TortillaChips.svg',
+          imagePath: 'assets/icons/TortillaChips.png',
         ),
         IngredientItem(
           name: 'Avocado',
           quantity: 1,
-          imagePath: 'assets/icons/Avocado.svg',
+          imagePath: 'assets/icons/Avocado.png',
         ),
         IngredientItem(
           name: 'Red Cabbage',
           quantity: 9,
-          imagePath: 'assets/icons/RedCabbage.svg',
+          imagePath: 'assets/icons/RedCabbage.png',
         ),
         IngredientItem(
           name: 'Peanuts',
           quantity: 1,
-          imagePath: 'assets/icons/Peanuts.svg',
+          imagePath: 'assets/icons/Peanuts.png',
         ),
         IngredientItem(
           name: 'Red Onions',
           quantity: 1,
-          imagePath: 'assets/icons/RedOnions.svg',
+          imagePath: 'assets/icons/RedOnions.png',
         ),
       ],
     );
