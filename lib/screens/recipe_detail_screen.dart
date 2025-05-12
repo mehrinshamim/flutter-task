@@ -39,7 +39,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen>
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(0), // Hide the AppBar
+        preferredSize: Size.fromHeight(0), 
         child: AppBar(backgroundColor: Colors.transparent, elevation: 0),
       ),
       body: Column(
@@ -62,6 +62,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen>
                           ),
                         ),
                       ),
+
                       // Back button
                       Positioned(
                         top: 0,
@@ -75,6 +76,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen>
                           ),
                         ),
                       ),
+
                       // Favorite button
                       Positioned(
                         top: 0,
@@ -84,8 +86,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen>
                             setState(() {
                               isFavorite = !isFavorite;
                             });
-                            // Optionally update the favorite status in the provider
-                            //recipeProvider.toggleFavorite(widget.recipe);
+
                           },
                           child: SvgPicture.asset(
                             isFavorite
@@ -105,7 +106,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen>
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(32), // Increased from 24
+                        top: Radius.circular(32), 
                       ),
                       boxShadow: [
                         BoxShadow(
@@ -175,7 +176,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen>
                         SizedBox(height: 16),
                         // Nutritional info
                         Container(
-                          height: 100, // Reduced height for 2x2 grid
+                          height: 100, 
                           padding: const EdgeInsets.symmetric(vertical: 4),
                           child: GridView.count(
                             crossAxisCount: 2,
@@ -226,8 +227,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen>
                                 color: Color(0xFF0D2422),
                               ),
                               indicatorSize:
-                                  TabBarIndicatorSize
-                                      .tab, // Makes indicator match tab width
+                                  TabBarIndicatorSize.tab, 
                               labelPadding: EdgeInsets.symmetric(
                                 horizontal: 16,
                               ), // Reduce tab padding
@@ -288,40 +288,40 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen>
                         ),
 
                         // Creator info
-                        SizedBox(height: 24), // Increased from 16
+                        SizedBox(height: 24), 
                         Text(
                           'Creator',
                           style: TextStyle(
-                            fontSize: 22, // Increased from 20
+                            fontSize: 22, 
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 16), // Increased from 8
+                        SizedBox(height: 16),
                         Row(
                           children: [
                             CircleAvatar(
-                              radius: 32, // Increased from 20
+                              radius: 32, 
                               backgroundImage: NetworkImage(
                                 'https://i.pravatar.cc/150?img=5',
                               ),
                             ),
-                            SizedBox(width: 16), // Increased from 12
+                            SizedBox(width: 16), 
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Natalia Luca',
                                   style: TextStyle(
-                                    fontSize: 18, // Added fontSize
+                                    fontSize: 18, 
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(height: 4), // Added spacing
+                                SizedBox(height: 4), 
                                 Text(
                                   "I'm the author and recipe developer.",
                                   style: TextStyle(
                                     color: Colors.grey[600],
-                                    fontSize: 14, // Increased from 12
+                                    fontSize: 14, 
                                   ),
                                 ),
                               ],
@@ -346,7 +346,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen>
                               child: Text(
                                 'See All',
                                 style: TextStyle(
-                                  fontSize: 18, // Added fontSize
+                                  fontSize: 18, 
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -378,7 +378,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen>
 
   Widget _buildNutritionItem(String iconPath, String text) {
     return Container(
-      height: 20, // Set fixed height
+      height: 20, 
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,

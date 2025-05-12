@@ -186,9 +186,7 @@ class AccountScreen extends StatelessWidget {
           context: context,
           recipe: recipe,
           title: recipe.title,
-          author:
-              recipe
-                  .creator, // Make sure this matches your Recipe model property
+          author: recipe.creator,
           authorImageIndex: 10 + index,
         );
       },

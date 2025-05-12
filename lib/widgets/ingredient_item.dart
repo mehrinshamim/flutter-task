@@ -64,12 +64,11 @@ class IngredientItem extends StatelessWidget {
           Row(
             children: [
               Container(
-                width: 32, // Increased from 24
-                height: 32, // Increased from 24
+                width: 32, 
+                height: 32,
                 decoration: BoxDecoration(
-                  color: Colors.white, // Changed from Colors.grey[200]
+                  color: Colors.white, 
                   borderRadius: BorderRadius.circular(6),
-                  // Removed border property
                 ),
                 child: SvgPicture.asset(
                   'assets/icons/Negative.svg',
@@ -81,21 +80,21 @@ class IngredientItem extends StatelessWidget {
                   width: 24,
                 ),
               ),
-              SizedBox(width: 20), // Increased from 16
+              SizedBox(width: 20), 
               Text(
                 quantity.toString(),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 18, // Added fontSize
+                  fontSize: 18,
                   color: Color(0xFF2D3E40),
                 ),
               ),
-              SizedBox(width: 20), // Increased from 16
+              SizedBox(width: 20), 
               Container(
-                width: 32, // Increased from 24
-                height: 32, // Increased from 24
+                width: 32, 
+                height: 32,
                 decoration: BoxDecoration(
-                  color: Colors.white, // Changed from Colors.grey[200]
+                  color: Colors.white, 
                   borderRadius: BorderRadius.circular(6),
                   // Removed border property
                 ),

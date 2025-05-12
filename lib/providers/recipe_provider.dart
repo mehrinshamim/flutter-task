@@ -73,15 +73,12 @@ class RecipeProvider extends ChangeNotifier {
   }
 
   Future<void> loadRecipeDetails(int recipeId) async {
-    // This would normally fetch from API
-    // Since we're adapting FakeStore API data, we'll add the details to the existing recipe
     final index = _recipes.indexWhere((recipe) => recipe.id == recipeId);
     if (index != -1) {
-      // Add ingredient details and instructions
       _recipes[index] = Recipe(
         id: _recipes[index].id,
         title: _recipes[index].title,
-        author: 'Natalia Luca', // Add this line
+        author: 'Natalia Luca', 
         chef: _recipes[index].chef,
         imageUrl: _recipes[index].imageUrl,
         cookTime: _recipes[index].cookTime,
@@ -89,7 +86,8 @@ class RecipeProvider extends ChangeNotifier {
         category: _recipes[index].category,
         ingredients: _recipes[index].ingredients,
         isFavorite: _recipes[index].isFavorite,
-        // Add new fields
+
+//Extra fields 
         carbs: 65,
         proteins: 27,
         fats: 9,

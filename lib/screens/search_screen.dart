@@ -78,7 +78,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
           ),
-          const SizedBox(width: 48), // Balance the back button
+          const SizedBox(width: 48), // to Balance the back button
         ],
       ),
     );
