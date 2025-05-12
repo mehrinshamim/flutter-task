@@ -167,44 +167,49 @@ class AccountScreen extends StatelessWidget {
   }
 
   Widget _buildFavoritesGrid(RecipeProvider recipeProvider) {
-    var favoriteRecipes =
-        recipeProvider.recipes
-            .where((recipe) => recipe.isFavorite)
-            .take(4)
-            .toList();
+    final recipeData = [
+      {
+        'title': 'Sunny Egg & Toast Avocado',
+        'author': 'Alice Fala',
+        'authorImageIndex': 10,
+      },
+      {
+        'title': 'Bowl of noodle with beef',
+        'author': 'James Spader',
+        'authorImageIndex': 11,
+      },
+      {
+        'title': 'Easy homemade beef burger',
+        'author': 'Agnes',
+        'authorImageIndex': 12,
+      },
+      {
+        'title': 'Half boiled egg sandwich',
+        'author': 'Natalia Luca',
+        'authorImageIndex': 13,
+      },
+    ];
 
-    // If no favorites, take first 4 recipes and mark them as favorites
-    if (favoriteRecipes.isEmpty) {
-      favoriteRecipes = recipeProvider.recipes.take(4).toList();
-      // Mark these recipes as favorites
-      favoriteRecipes.forEach((recipe) {
-        recipeProvider.toggleFavorite(recipe.id);
-      });
-    }
-
-    return Container(
-      height: 700,
-      child: GridView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-          childAspectRatio: 0.75,
-        ),
-        itemCount: favoriteRecipes.length,
-        itemBuilder: (context, index) {
-          final recipe = favoriteRecipes[index];
-          return _buildRecipeCard(
-            context: context,
-            recipe: recipe,
-            title: recipe.title,
-            author: recipe.creator ?? 'James Spader',
-            authorImageIndex: 10,
-          );
-        },
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+        childAspectRatio: 0.75,
       ),
+      itemCount: recipeProvider.recipes.length.clamp(0, 4),
+      itemBuilder: (context, index) {
+        final recipe = recipeProvider.recipes[index];
+        return _buildRecipeCard(
+          context: context,
+          recipe: recipe,
+          title: recipeData[index]['title'] as String,
+          author: recipeData[index]['author'] as String,
+          authorImageIndex: recipeData[index]['authorImageIndex'] as int,
+        );
+      },
     );
   }
 

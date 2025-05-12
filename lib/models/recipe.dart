@@ -4,6 +4,7 @@ class Recipe {
   final int id;
   final String title;
   final String chef;
+  final String author; // Make sure this property exists
   final String imageUrl;
   final int cookTime;
   final int calories;
@@ -23,6 +24,7 @@ class Recipe {
     required this.id,
     required this.title,
     required this.chef,
+    required this.author, // Add this to the constructor
     required this.imageUrl,
     required this.cookTime,
     required this.calories,
@@ -47,6 +49,7 @@ class Recipe {
               ? "${product.title.substring(0, 25)}..."
               : product.title,
       chef: "James Spader",
+      author: "Unknown", // Add this to the factory constructor
       imageUrl: product.image,
       cookTime: 20,
       calories: 100,
@@ -65,7 +68,6 @@ class Recipe {
       fats: 10,
     );
   }
-
 
   static String _mapCategoryToMeal(String category) {
     final Map<String, String> categoryMap = {

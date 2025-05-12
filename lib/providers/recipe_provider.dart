@@ -59,6 +59,7 @@ class RecipeProvider extends ChangeNotifier {
       _recipes[index] = Recipe(
         id: _recipes[index].id,
         title: _recipes[index].title,
+        author: _recipes[index].author, // Add this line
         chef: _recipes[index].chef,
         imageUrl: _recipes[index].imageUrl,
         cookTime: _recipes[index].cookTime,
@@ -80,6 +81,7 @@ class RecipeProvider extends ChangeNotifier {
       _recipes[index] = Recipe(
         id: _recipes[index].id,
         title: _recipes[index].title,
+        author: 'Natalia Luca', // Add this line
         chef: _recipes[index].chef,
         imageUrl: _recipes[index].imageUrl,
         cookTime: _recipes[index].cookTime,

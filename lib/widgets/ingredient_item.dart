@@ -1,111 +1,125 @@
-// lib/widgets/ingredient_item.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-class IngredientItem extends StatefulWidget {
+class IngredientItem extends StatelessWidget {
   final String name;
   final int quantity;
+  final String? imageUrl;
+  final String? imagePath; // Added image path parameter
 
-  const IngredientItem({Key? key, required this.name, required this.quantity})
-    : super(key: key);
-
-  @override
-  _IngredientItemState createState() => _IngredientItemState();
-}
-
-class _IngredientItemState extends State<IngredientItem> {
-  bool isSelected = false;
-  int quantity = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    quantity = widget.quantity;
-  }
+  const IngredientItem({
+    Key? key,
+    required this.name,
+    required this.quantity,
+    this.imageUrl,
+    this.imagePath, // Add this parameter
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.all(12),
+      margin: EdgeInsets.only(bottom: 20), // Increased from 16 to 20
+      padding: EdgeInsets.symmetric(
+        vertical: 16,
+        horizontal: 20,
+      ), // Increased padding
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
-            blurRadius: 5,
-            offset: Offset(0, 2),
+            blurRadius: 2,
+            offset: Offset(0, 1),
           ),
         ],
       ),
       child: Row(
         children: [
-          // Ingredient image
           Container(
-            width: 40,
-            height: 40,
+            width: 50, // Increased from 40
+            height: 50, // Increased from 40
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
               color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(8),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                'https://picsum.photos/seed/${widget.name.hashCode}/40/40',
-                fit: BoxFit.cover,
-              ),
+              child:
+                  imagePath != null
+                      ? SvgPicture.asset(
+                        imagePath!,
+                        // Remove BoxFit.cover
+                        height: 24,
+                        width: 24,
+                      )
+                      : imageUrl != null
+                      ? Image.network(imageUrl!, fit: BoxFit.cover)
+                      : Icon(
+                        Icons.restaurant,
+                        color: Colors.grey[400],
+                        size: 30,
+                      ),
             ),
           ),
-          SizedBox(width: 12),
-
-          // Ingredient name
+          SizedBox(width: 20), // Increased from 16
           Expanded(
             child: Text(
-              widget.name,
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-            ),
-          ),
-
-          // Checkbox
-          Checkbox(
-            value: isSelected,
-            onChanged: (value) {
-              setState(() {
-                isSelected = value ?? false;
-              });
-            },
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4),
-            ),
-          ),
-
-          // Quantity controls
-          Container(
-            width: 24,
-            height: 24,
-            alignment: Alignment.center,
-            child: Text(
-              '$quantity',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          IconButton(
-            icon: Container(
-              padding: EdgeInsets.all(2),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey[300]!),
-                borderRadius: BorderRadius.circular(4),
+              name,
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 18, // Increased from 16
+                color: Color(0xFF2D3E40),
               ),
-              child: Icon(Icons.add, size: 16),
             ),
-            onPressed: () {
-              setState(() {
-                quantity++;
-              });
-            },
-            constraints: BoxConstraints(),
-            padding: EdgeInsets.zero,
-            iconSize: 24,
+          ),
+          Row(
+            children: [
+              Container(
+                width: 32, // Increased from 24
+                height: 32, // Increased from 24
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: SvgPicture.asset(
+                  'assets/icons/Negative.svg',
+                  colorFilter: ColorFilter.mode(
+                    quantity == 1 ? Colors.grey : Color(0xFF70B9BE),
+                    BlendMode.srcIn,
+                  ),
+                  height: 24,
+                  width: 24,
+                ),
+              ),
+              SizedBox(width: 20), // Increased from 16
+              Text(
+                quantity.toString(),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18, // Added fontSize
+                  color: Color(0xFF2D3E40),
+                ),
+              ),
+              SizedBox(width: 20), // Increased from 16
+              Container(
+                width: 32, // Increased from 24
+                height: 32, // Increased from 24
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: SvgPicture.asset(
+                  'assets/icons/Plus.svg',
+                  colorFilter: ColorFilter.mode(
+                    Color(0xFF70B9BE),
+                    BlendMode.srcIn,
+                  ),
+                  height: 24,
+                  width: 24,
+                ),
+              ),
+            ],
           ),
         ],
       ),

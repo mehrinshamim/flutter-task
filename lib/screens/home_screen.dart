@@ -4,6 +4,7 @@ import '../providers/recipe_provider.dart';
 import '../widgets/recipe_card.dart';
 import '../widgets/category_chip.dart';
 import '../widgets/bottom_navigation.dart';
+import '../widgets/floating_action_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -49,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-
                             Row(
                               children: [
                                 Image.asset(
@@ -71,12 +71,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             const SizedBox(height: 4),
                             Text(
                               'Alena Sabyan',
-                              style: Theme.of(context).textTheme.titleLarge
-                                  ?.copyWith(
-                                    fontFamily: 'SofiaPro',
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.bold
-                                    ),
+                              style: Theme.of(
+                                context,
+                              ).textTheme.titleLarge?.copyWith(
+                                fontFamily: 'SofiaPro',
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
@@ -93,10 +94,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
 
-              // Add spacing here
-                SliverToBoxAdapter(
-                  child: const SizedBox(height: 16.0)
-                  ),
+                // Add spacing here
+                SliverToBoxAdapter(child: const SizedBox(height: 16.0)),
 
                 SliverToBoxAdapter(
                   child: Padding(
@@ -116,10 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
 
-                  // Add spacing here
-                SliverToBoxAdapter(
-                  child: const SizedBox(height: 16.0),
-                ),
+                // Add spacing here
+                SliverToBoxAdapter(child: const SizedBox(height: 16.0)),
 
                 // Featured recipes
                 SliverToBoxAdapter(
@@ -157,7 +154,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     const SizedBox(height: 8),
                                     Row(
                                       children: [
-                                  
                                         CircleAvatar(
                                           radius: 12,
                                           backgroundImage: NetworkImage(
@@ -228,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                 ),
-                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -305,23 +301,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 //   ),
                 // ),
                 SliverToBoxAdapter(child: PopularRecipesSection()),
-
               ],
             );
           },
         ),
       ),
       bottomNavigationBar: const BottomNavigation(currentIndex: 0),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: Colors.white,
-        child: const Icon(Icons.restaurant_menu, color: Colors.black),
+      floatingActionButton: const CustomFloatingActionButton(
+        backgroundColor: const Color(0xFF0D3B35),
+        iconColor: Colors.white,
+        onPressed: null, // or add your callback function here
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
-
 
 // Popular Recipes Section (Image 1)
 class PopularRecipesSection extends StatelessWidget {
@@ -370,19 +364,24 @@ class PopularRecipesSection extends StatelessWidget {
           )
         else
           SizedBox(
-            height: 180,
+            height: 300,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+              ), // Add this line
               itemCount: featuredRecipes.length,
               itemBuilder: (context, index) {
                 final recipe = featuredRecipes[index];
                 return Padding(
                   padding: EdgeInsets.only(right: 12),
-                  child: RecipeCard(
-                    recipe: recipe,
-                    onFavoriteToggle: () {
-                      recipeProvider.toggleFavorite(recipe.id);
-                    },
+                  child: SingleChildScrollView(
+                    child: RecipeCard(
+                      recipe: recipe,
+                      onFavoriteToggle: () {
+                        recipeProvider.toggleFavorite(recipe.id);
+                      },
+                    ),
                   ),
                 );
               },

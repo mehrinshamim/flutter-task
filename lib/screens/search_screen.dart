@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/recipe_provider.dart';
 import '../widgets/bottom_navigation.dart';
-//import './recipe_detail_screen.dart';
-
+import '../widgets/floating_action_button.dart';
+import './recipe_detail_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -28,24 +28,29 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(height: 20),
-            _buildHeader(),
-            SizedBox(height: 10),
-            _buildSearchBar(),
-            _buildMealCategories(recipeProvider),
-            _buildPopularRecipes(recipeProvider),
-            _buildEditorsChoice(recipeProvider),
-            const Spacer(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 20),
+              _buildHeader(),
+              SizedBox(height: 10),
+              _buildSearchBar(),
+              _buildMealCategories(recipeProvider),
+              _buildPopularRecipes(recipeProvider),
+              _buildEditorsChoice(recipeProvider),
+              SizedBox(height: 20),
+              //const Spacer(),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: const BottomNavigation(currentIndex: 1),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: CustomFloatingActionButton(
         backgroundColor: const Color(0xFF0D3B35),
-        child: const Icon(Icons.restaurant_menu, color: Colors.white),
-        onPressed: () {},
+        iconColor: Colors.white,
+        onPressed: () {
+          // Add your onPressed logic here
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
@@ -85,10 +90,7 @@ class _SearchScreenState extends State<SearchScreen> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            width: 1,
-            color: Colors.grey,
-          ),
+          border: Border.all(width: 1, color: Colors.grey),
         ),
         child: TextField(
           controller: _searchController,
@@ -159,15 +161,18 @@ class _SearchScreenState extends State<SearchScreen> {
           _buildSectionHeader('Popular Recipes'),
           const SizedBox(height: 15),
           SizedBox(
-            height: 150,
+            height: 170,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: recipeProvider.recipes.length.clamp(0, 3),
               itemBuilder: (context, index) {
                 final recipe = recipeProvider.recipes[index];
-                return RecipeCard(
-                  imageUrl: recipe.imageUrl,
-                  title: recipe.title,
+                return SingleChildScrollView(
+                  child: RecipeCard(
+                    imageUrl: recipe.imageUrl,
+                    title: recipe.title,
+                    recipe: recipe, // Pass the entire recipe object
+                  ),
                 );
               },
             ),
@@ -192,6 +197,10 @@ class _SearchScreenState extends State<SearchScreen> {
             title: 'Easy homemade beef burger',
             author: 'James Spader',
             authorImageUrl: 'https://i.pravatar.cc/150?img=20',
+            recipe:
+                recipeProvider.recipes.length > 2
+                    ? recipeProvider.recipes[2]
+                    : null, // Add this line
           ),
           const SizedBox(height: 15),
           _buildFeaturedRecipe(
@@ -202,6 +211,10 @@ class _SearchScreenState extends State<SearchScreen> {
             title: 'Blueberry with egg for breakfast',
             author: 'Alice Fala',
             authorImageUrl: 'https://i.pravatar.cc/150?img=21',
+            recipe:
+                recipeProvider.recipes.length > 3
+                    ? recipeProvider.recipes[3]
+                    : null, // Add this line
           ),
         ],
       ),
@@ -237,6 +250,7 @@ class _SearchScreenState extends State<SearchScreen> {
     required String title,
     required String author,
     required String authorImageUrl,
+    required dynamic recipe, // Add this parameter
   }) {
     return Container(
       decoration: BoxDecoration(
@@ -312,7 +326,18 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             child: IconButton(
               icon: const Icon(Icons.arrow_forward, color: Colors.white),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder:
+                        (context) => RecipeDetailScreen(
+                          recipe:
+                              recipe, // You'll need to pass the recipe object here
+                        ),
+                  ),
+                );
+              },
             ),
           ),
         ],
@@ -324,57 +349,81 @@ class _SearchScreenState extends State<SearchScreen> {
 class RecipeCard extends StatelessWidget {
   final String imageUrl;
   final String title;
+  final dynamic recipe; // Add this field
 
-  const RecipeCard({Key? key, required this.imageUrl, required this.title})
-    : super(key: key);
+  const RecipeCard({
+    Key? key,
+    required this.imageUrl,
+    required this.title,
+    required this.recipe, // Add this parameter
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 120,
-      margin: const EdgeInsets.only(right: 15),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            blurRadius: 5,
-            spreadRadius: 1,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RecipeDetailScreen(recipe: recipe),
           ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(15),
-              topRight: Radius.circular(15),
+        );
+      },
+      child: Container(
+        width: 120,
+        margin: const EdgeInsets.only(right: 15),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              blurRadius: 8,
+              spreadRadius: 2,
+              offset: const Offset(0, 2),
             ),
-            child: Image.network(
-              imageUrl,
-              height: 100,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10), // Added padding
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                ),
+                child: Image.network(
+                  imageUrl,
                   height: 100,
                   width: double.infinity,
-                  color: Colors.grey[300],
-                  child: const Icon(Icons.image, color: Colors.grey),
-                );
-              },
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      height: 100,
+                      width: double.infinity,
+                      color: Colors.grey[300],
+                      child: const Icon(Icons.image, color: Colors.grey),
+                    );
+                  },
+                ),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              title.length > 10 ? title.substring(0, 10) + '...' : title,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

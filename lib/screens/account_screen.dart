@@ -1,9 +1,11 @@
 // lib/screens/account_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../providers/recipe_provider.dart';
 import '../widgets/bottom_navigation.dart';
 import './recipe_detail_screen.dart';
+import '../widgets/floating_action_button.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -13,7 +15,7 @@ class AccountScreen extends StatelessWidget {
     final recipeProvider = Provider.of<RecipeProvider>(context);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromARGB(255, 243, 243, 243),
       body: SafeArea(
         child: Column(
           children: [
@@ -37,7 +39,11 @@ class AccountScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: const BottomNavigation(currentIndex: 3),
-      floatingActionButton: _buildFloatingActionButton(),
+      floatingActionButton: const CustomFloatingActionButton(
+        backgroundColor: Color(0xFF0D4A43),
+        iconColor: Colors.white,
+        onPressed: null, // Add your callback function here if needed
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
@@ -56,14 +62,18 @@ class AccountScreen extends StatelessWidget {
               color: Color(0xFF0D2340),
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: IconButton(
-              icon: const Icon(Icons.settings, color: Color(0xFF0D2340)),
-              onPressed: () {},
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: SvgPicture.asset(
+                'assets/icons/Setting.svg',
+                height: 24,
+                width: 24,
+              ),
             ),
           ),
         ],
@@ -102,7 +112,7 @@ class AccountScreen extends StatelessWidget {
                 Text(
                   'Alena Sabyan',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF0D2340),
                   ),
@@ -157,28 +167,8 @@ class AccountScreen extends StatelessWidget {
   }
 
   Widget _buildFavoritesGrid(RecipeProvider recipeProvider) {
-    final recipeData = [
-      {
-        'title': 'Sunny Egg & Toast Avocado',
-        'author': 'Alice Fala',
-        'authorImageIndex': 10,
-      },
-      {
-        'title': 'Bowl of noodle with beef',
-        'author': 'James Spader',
-        'authorImageIndex': 11,
-      },
-      {
-        'title': 'Easy homemade beef burger',
-        'author': 'Agnes',
-        'authorImageIndex': 12,
-      },
-      {
-        'title': 'Half boiled egg sandwich',
-        'author': 'Natalia Luca',
-        'authorImageIndex': 13,
-      },
-    ];
+    // Get first 4 recipes from provider
+    final recipes = recipeProvider.recipes.take(4).toList();
 
     return GridView.builder(
       shrinkWrap: true,
@@ -189,15 +179,17 @@ class AccountScreen extends StatelessWidget {
         mainAxisSpacing: 16,
         childAspectRatio: 0.75,
       ),
-      itemCount: recipeProvider.recipes.length.clamp(0, 4),
+      itemCount: recipes.length,
       itemBuilder: (context, index) {
-        final recipe = recipeProvider.recipes[index];
+        final recipe = recipes[index];
         return _buildRecipeCard(
-          context: context, 
+          context: context,
           recipe: recipe,
-          title: recipeData[index]['title'] as String,
-          author: recipeData[index]['author'] as String,
-          authorImageIndex: recipeData[index]['authorImageIndex'] as int,
+          title: recipe.title,
+          author:
+              recipe
+                  .creator, // Make sure this matches your Recipe model property
+          authorImageIndex: 10 + index,
         );
       },
     );
@@ -236,31 +228,38 @@ class AccountScreen extends StatelessWidget {
           children: [
             Stack(
               children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(16),
-                  ),
-                  child: Image.network(
-                    recipe.imageUrl,
-                    height: 140,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 4,
+                          spreadRadius: 1,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.network(
+                        recipe.imageUrl,
+                        height: 120, // Reduced height to account for padding
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
                 Positioned(
                   right: 8,
                   top: 8,
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: const Icon(
-                      Icons.favorite,
-                      color: Color(0xFF5BCAC3),
-                      size: 20,
-                    ),
+                  child: SvgPicture.asset(
+                    'assets/icons/Love-Filled.svg',
+                    height: 60, // Increased from 20
+                    width: 60, // Increased from 20
                   ),
                 ),
               ],
@@ -291,7 +290,7 @@ class AccountScreen extends StatelessWidget {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        author,
+                        'Natalia Luca',
                         style: const TextStyle(
                           fontSize: 14,
                           color: Colors.grey,
@@ -305,18 +304,6 @@ class AccountScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildFloatingActionButton() {
-    return Container(
-      width: 56,
-      height: 56,
-      decoration: BoxDecoration(
-        color: const Color(0xFF0D4A43),
-        borderRadius: BorderRadius.circular(50),
-      ),
-      child: const Icon(Icons.restaurant_menu, color: Colors.white),
     );
   }
 }

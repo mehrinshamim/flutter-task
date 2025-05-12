@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomFloatingActionButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -30,10 +31,12 @@ class CustomFloatingActionButton extends StatelessWidget {
         onPressed: onPressed,
         backgroundColor: backgroundColor,
         elevation: 0,
-        child: Icon(
-          Icons.restaurant_menu,
-          color: iconColor,
-          size: 28,
+        shape: const CircleBorder(), // Add this line
+        child: SvgPicture.asset(
+          'assets/icons/Chef.svg',
+          colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+          height: 28,
+          width: 28,
         ),
       ),
     );
